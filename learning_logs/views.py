@@ -4,7 +4,7 @@ from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
-template_name = r"learning_logs\index.html"
+template_name = r"learning_logs/index.html"
 
 
 def index(request):
@@ -16,7 +16,7 @@ def index(request):
 def topics(request):
     topics = Topic.objects.filter(user=request.user).order_by('date_add')
     context = {'topics': topics}
-    return render(request, r'learning_logs\topics.html', context)
+    return render(request, r'learning_logs/topics.html', context)
 
 
 @login_required
@@ -27,8 +27,8 @@ def topic(request, id):
         check_topic_owner(topic, request)
         context = {'entries': entries, 'topic': topic}
     except Exception:
-        return render(request, r'learning_logs\index.html')
-    return render(request, r'learning_logs\topic.html', context)
+        return render(request, r'learning_logs/index.html')
+    return render(request, r'learning_logs/topic.html', context)
 
 
 def check_topic_owner(topic, request):
@@ -50,7 +50,7 @@ def new_topic(request):
             new_topic.save()
             return redirect('learning_logs:topics')
     context = {'form': form}
-    return render(request, r'learning_logs\new_topic.html', context)
+    return render(request, r'learning_logs/new_topic.html', context)
 
 
 @login_required
@@ -68,7 +68,7 @@ def new_entry(request, id):
             new_entry.save()
             return redirect('learning_logs:topic', id=id)
     context = {'form': form, 'topic': topic}
-    return render(request, r'learning_logs\new_entry.html', context)
+    return render(request, r'learning_logs/new_entry.html', context)
 
 
 @login_required
@@ -84,4 +84,4 @@ def edit_entry(request, id):
             form.save()
             return redirect('learning_logs:topic', id=topic.id)
     context = {'entry': entry, 'form': form, 'topic': topic}
-    return render(request, r'learning_logs\edit_entry.html', context)
+    return render(request, r'learning_logs/edit_entry.html', context)
