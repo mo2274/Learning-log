@@ -9,7 +9,7 @@ template_name = r"learning_logs\index.html"
 
 def index(request):
     """ the home page for learning log """
-    return render(request, r'learning_logs\index.html')
+    return render(request, r'learning_logs/index.html')
 
 
 @login_required
