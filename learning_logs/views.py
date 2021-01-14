@@ -27,7 +27,7 @@ def topic(request, id):
         check_topic_owner(topic, request)
         context = {'entries': entries, 'topic': topic}
     except Exception:
-        return render(request, r'learning_logs/index.html')
+        raise Http404
     return render(request, r'learning_logs/topic.html', context)
 
 
